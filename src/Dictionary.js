@@ -1,13 +1,35 @@
 import "./Dictionary.css";
 import { useState } from "react";
+import axios from "axios";
 export default function Dictionary() {
   const [keyword, setKeyword] = useState("");
+  const [searchWord, setSearchWord] = useState("Lorem");
+  const [definition, setDefinition] = useState(
+    "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor."
+  );
+  const [phoenticPronunciation, setPhoenticPronunciation] =
+    useState("/lˈoh(r)ὲm/");
+  const [partOfSpeech, setPartOfSpeech] = useState("noun");
+  const [example, setExample] = useState(`"Lorem ipsum dolor sit amet..."`);
   function changeKeyword(event) {
-    setKeyword(event.target.value);
+    setKeyword(`"${event.target.value}"`);
+  }
+
+  function getDefinition(response) {
+    console.log(response);
+    setSearchWord(response.data.word);
+    setDefinition(response.data.meanings[0].definition);
+    setPhoenticPronunciation(response.data.phonetic);
+    setPartOfSpeech(response.data.meanings[0].partOfSpeech);
+    //setExample(response.data.meanings[0].example);
+    return null;
   }
   function search(event) {
     event.preventDefault();
-    alert(`Looking for ${keyword}`);
+    const apiKey = `aef1757e37906f8atc32b9da5odbc24a`;
+    const apiUrl = `https://api.shecodes.io/dictionary/v1/define?word=${keyword}&key=${apiKey}`;
+
+    axios.get(apiUrl).then(getDefinition);
   }
   return (
     <div className="container">
@@ -15,6 +37,12 @@ export default function Dictionary() {
         <input type="search" autoFocus={true} onChange={changeKeyword} />
         <input type="submit" />
       </form>
+
+      <h2 className="search-word">{searchWord}</h2>
+      <p className="phoentic-pronunciation">{phoenticPronunciation}</p>
+      <p className="part-of-speech">{partOfSpeech}</p>
+      <p className="definition">{definition}</p>
+      <p className="example">{example}</p>
     </div>
   );
 }
