@@ -11,7 +11,16 @@ export default function App() {
       <main>
         <Dictionary />
       </main>
-      <footer className="App-footer">Coded by Peyton Bighorse</footer>
+      <footer className="App-footer">
+        Coded by Peyton Bighorse and hosted on{" "}
+        <a
+          href="https://pmb-dictionary-app.netlify.app/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Netlify
+        </a>
+      </footer>
     </div>
   );
 }
