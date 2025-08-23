@@ -1,0 +1,21 @@
+.Synonyms {
+  margin-left: 10px;
+  display: flex;
+  gap: 5px;
+  font-size: 13px;
+  align-items: bottom;
+}
+.Synonyms .synonym-title {
+  opacity: 0.5;
+}
+.Synonyms .synonym {
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+  transition: all 200ms ease-in-out;
+}
+
+.Synonyms .synonym:hover {
+  color: rgb(219, 22, 88);
+  transform: scale(1.02);
+}

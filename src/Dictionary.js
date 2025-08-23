@@ -1,6 +1,7 @@
 import "./Dictionary.css";
 import { useState } from "react";
 import axios from "axios";
+import Synonyms from "./Synonyms";
 export default function Dictionary() {
   const [keyword, setKeyword] = useState("");
   const [searchWord, setSearchWord] = useState("");
@@ -22,8 +23,6 @@ export default function Dictionary() {
     );
   }
   function getDefinition(response) {
-    console.log(response);
-
     function checkExample(i) {
       if (response.data.meanings[i].example) {
         return `"${response.data.meanings[i].example}"`;
@@ -49,6 +48,7 @@ export default function Dictionary() {
                   {response.data.meanings[index].definition}
                 </div>
                 <div className="example">{checkExample(index)}</div>
+                <Synonyms synonyms={response.data.meanings[index].synonyms} />
               </div>
             );
           })}
