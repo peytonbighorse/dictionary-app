@@ -3,14 +3,11 @@ import { useState } from "react";
 import axios from "axios";
 export default function Dictionary() {
   const [keyword, setKeyword] = useState("");
-  const [searchWord, setSearchWord] = useState("Lorem");
-  const [definition, setDefinition] = useState(
-    "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor."
-  );
-  const [phoenticPronunciation, setPhoenticPronunciation] =
-    useState("/lˈoh(r)ὲm/");
-  const [partOfSpeech, setPartOfSpeech] = useState("noun");
-  const [example, setExample] = useState(`"Lorem ipsum dolor sit amet..."`);
+  const [searchWord, setSearchWord] = useState("");
+  const [definition, setDefinition] = useState(null);
+  const [phoenticPronunciation, setPhoenticPronunciation] = useState(null);
+  const [partOfSpeech, setPartOfSpeech] = useState(null);
+  const [example, setExample] = useState(null);
   function changeKeyword(event) {
     setKeyword(event.target.value);
   }
