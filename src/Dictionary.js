@@ -12,23 +12,33 @@ export default function Dictionary() {
   const [partOfSpeech, setPartOfSpeech] = useState("noun");
   const [example, setExample] = useState(`"Lorem ipsum dolor sit amet..."`);
   function changeKeyword(event) {
-    setKeyword(`"${event.target.value}"`);
+    setKeyword(event.target.value);
   }
 
   function getDefinition(response) {
     console.log(response);
+    function checkExample() {
+      if (response.data.meanings[0].example) {
+        return `"${response.data.meanings[0].example}"`;
+      } else {
+        return null;
+      }
+    }
+
     setSearchWord(response.data.word);
     setDefinition(response.data.meanings[0].definition);
     setPhoenticPronunciation(response.data.phonetic);
     setPartOfSpeech(response.data.meanings[0].partOfSpeech);
-    //setExample(response.data.meanings[0].example);
+    setExample(checkExample());
+
     return null;
   }
   function search(event) {
     event.preventDefault();
     const apiKey = `aef1757e37906f8atc32b9da5odbc24a`;
     const apiUrl = `https://api.shecodes.io/dictionary/v1/define?word=${keyword}&key=${apiKey}`;
-
+    console.log(keyword);
+    console.log(apiKey);
     axios.get(apiUrl).then(getDefinition);
   }
   return (
