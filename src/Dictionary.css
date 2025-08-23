@@ -1,0 +1,40 @@
+.Dictionary .question {
+  font-size: 15px;
+  opacity: 0.5;
+  padding-bottom: 8px;
+}
+.Dictionary form {
+  padding-bottom: 5px;
+}
+
+.Dictionary .search-word {
+  padding: 0;
+  margin: 0;
+}
+
+.Dictionary .phonetic-pronunciation {
+  font-size: 15px;
+  padding: 0;
+  opacity: 0.75;
+  margin-bottom: 15px;
+}
+
+.Dictionary .definition-entry:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 15px;
+}
+.Dictionary .part-of-speech {
+  opacity: 0.5;
+}
+.Dictionary .definition {
+  margin-left: 10px;
+}
+.Dictionary .meaning {
+  margin-left: 10px;
+  font-weight: bold;
+}
+.Dictionary .example {
+  margin-left: 10px;
+  opacity: 0.75;
+  padding-bottom: 10px;
+}
