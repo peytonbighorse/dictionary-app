@@ -5,7 +5,6 @@ export default function Dictionary() {
   const [keyword, setKeyword] = useState("");
   const [searchWord, setSearchWord] = useState("");
   const [definitions, setDefinitions] = useState([]);
-  const [phoenticPronunciation, setPhoenticPronunciation] = useState(null);
 
   function changeKeyword(event) {
     setKeyword(event.target.value);
@@ -26,6 +25,8 @@ export default function Dictionary() {
 
       return (
         <div>
+          <h2 className="search-word">{response.data.word}</h2>
+          <div className="phonetic-pronunciation">{response.data.phonetic}</div>
           {meaningsArray.map(function (i, index) {
             return (
               <div className="definition-entry" key={index}>
@@ -45,7 +46,6 @@ export default function Dictionary() {
 
     setSearchWord(response.data.word);
     setDefinitions(returnMeanings());
-    setPhoenticPronunciation(response.data.phonetic);
 
     return null;
   }
@@ -75,9 +75,6 @@ export default function Dictionary() {
         />
         <input type="submit" />
       </form>
-
-      <h2 className="search-word">{searchWord}</h2>
-      <div className="phonetic-pronunciation">{phoenticPronunciation}</div>
 
       <div className="definition">{definitions}</div>
     </div>
