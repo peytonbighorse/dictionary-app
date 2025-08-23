@@ -5,3 +5,9 @@
   text-align: center;
   margin-top: 40px;
 }
+.App footer a {
+  transition: all 200ms ease-in-out;
+}
+.App footer a:hover {
+  color: rgb(219, 22, 88);
+}
