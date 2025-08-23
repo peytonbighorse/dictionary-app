@@ -1,3 +1,6 @@
+body {
+  background-color: rgba(255, 192, 203, 0.283);
+}
 .Dictionary .question {
   font-size: 15px;
   opacity: 0.5;
@@ -22,6 +25,7 @@
 .Dictionary .definition-entry:not(:last-child) {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   margin-bottom: 15px;
+  padding-bottom: 15px;
 }
 .Dictionary .part-of-speech {
   opacity: 0.5;
