@@ -1,7 +1,6 @@
 import "./Dictionary.css";
 import { useState } from "react";
 import axios from "axios";
-import Synonyms from "./Synonyms";
 export default function Dictionary() {
   const [keyword, setKeyword] = useState("");
   const [searchWord, setSearchWord] = useState("");
@@ -39,6 +38,38 @@ export default function Dictionary() {
           <h2 className="search-word">{response.data.word}</h2>
           <div className="phonetic-pronunciation">{response.data.phonetic}</div>
           {meaningsArray.map(function (i, index) {
+            function getSynonyms() {
+              let synonyms = response.data.meanings[index].synonyms;
+              function clickLink(event) {
+                event.preventDefault();
+                let newWord = event.target.id;
+                const apiKey = `aef1757e37906f8atc32b9da5odbc24a`;
+                const apiUrl = `https://api.shecodes.io/dictionary/v1/define?word=${newWord}&key=${apiKey}`;
+                axios.get(apiUrl).then(getDefinition).catch(handleError);
+              }
+              if (synonyms) {
+                return (
+                  <div className="Synonyms">
+                    <div className="synonym-title">Similar: </div>
+
+                    {synonyms.map(function (i, index) {
+                      return (
+                        <div
+                          onClick={clickLink}
+                          key={index}
+                          className="synonym"
+                          id={i}
+                        >
+                          {i}
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            }
             return (
               <div className="definition-entry" key={index}>
                 <div className="part-of-speech">
@@ -48,7 +79,7 @@ export default function Dictionary() {
                   {response.data.meanings[index].definition}
                 </div>
                 <div className="example">{checkExample(index)}</div>
-                <Synonyms synonyms={response.data.meanings[index].synonyms} />
+                {getSynonyms()}
               </div>
             );
           })}
