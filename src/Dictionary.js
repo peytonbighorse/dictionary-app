@@ -4,8 +4,9 @@ import axios from "axios";
 import Photos from "./Photos";
 
 export default function Dictionary() {
-  const [keyword, setKeyword] = useState("");
-  const [searchWord, setSearchWord] = useState("");
+  const [loaded, setLoaded] = useState(true);
+  const [keyword, setKeyword] = useState("chihuahua");
+  const [searchWord, setSearchWord] = useState("chihuahua");
   const [definitions, setDefinitions] = useState(null);
   const [photos, setPhotos] = useState(null);
   function changeKeyword(event) {
@@ -105,7 +106,15 @@ export default function Dictionary() {
 
     return null;
   }
-
+  function loadPage() {
+    if (loaded) {
+      const apiKey = `aef1757e37906f8atc32b9da5odbc24a`;
+      const apiUrl = `https://api.shecodes.io/dictionary/v1/define?word=${keyword}&key=${apiKey}`;
+      axios.get(apiUrl).then(getDefinition).catch(handleError);
+      setLoaded(false);
+    }
+  }
+  loadPage();
   function search(event) {
     event.preventDefault();
     const apiKey = `aef1757e37906f8atc32b9da5odbc24a`;
