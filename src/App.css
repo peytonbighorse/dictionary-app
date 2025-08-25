@@ -1,6 +1,10 @@
 .App {
   margin: 30px;
 }
+.App h1 a {
+  color: black;
+  text-decoration: none;
+}
 .App footer {
   text-align: center;
   margin-top: 40px;

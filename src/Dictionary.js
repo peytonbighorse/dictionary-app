@@ -1,11 +1,13 @@
 import "./Dictionary.css";
 import { useState } from "react";
 import axios from "axios";
+import Photos from "./Photos";
+
 export default function Dictionary() {
   const [keyword, setKeyword] = useState("");
   const [searchWord, setSearchWord] = useState("");
   const [definitions, setDefinitions] = useState(null);
-
+  const [photos, setPhotos] = useState(null);
   function changeKeyword(event) {
     setKeyword(event.target.value);
   }
@@ -21,6 +23,10 @@ export default function Dictionary() {
       </div>
     );
   }
+  function getPhotos(response) {
+    console.log(response.data.photos);
+    setPhotos(response.data.photos);
+  }
   function getDefinition(response) {
     function checkExample(i) {
       if (response.data.meanings[i].example) {
@@ -29,6 +35,12 @@ export default function Dictionary() {
         return null;
       }
     }
+    const imageApiKey = `aef1757e37906f8atc32b9da5odbc24a`;
+    const imageApiUrl = `https://api.shecodes.io/images/v1/search?query=${response.data.word}&key=${imageApiKey}`;
+
+    axios
+      .get(imageApiUrl, { headers: { Authorization: `Bearer ${imageApiKey}` } })
+      .then(getPhotos);
 
     function returnMeanings() {
       let meaningsArray = [...response.data.meanings];
@@ -37,6 +49,7 @@ export default function Dictionary() {
         <div>
           <h2 className="search-word">{response.data.word}</h2>
           <div className="phonetic-pronunciation">{response.data.phonetic}</div>
+
           {meaningsArray.map(function (i, index) {
             function getSynonyms() {
               let synonyms = response.data.meanings[index].synonyms;
@@ -92,6 +105,7 @@ export default function Dictionary() {
 
     return null;
   }
+
   function search(event) {
     event.preventDefault();
     const apiKey = `aef1757e37906f8atc32b9da5odbc24a`;
@@ -120,6 +134,7 @@ export default function Dictionary() {
       </form>
 
       <div className="definition">{definitions}</div>
+      <Photos photos={photos} />
     </div>
   );
 }
